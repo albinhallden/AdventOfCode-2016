@@ -13,8 +13,7 @@ fs.readFileSync(path.join('input.txt')).toString()
   .split(',')
   .map(item => item.trim())
   .forEach(item => {
-    if (item[0] === 'R') direction++;
-    else if (item[0] === 'L') direction--;
+    direction = item[0] === 'R' ? direction + 1 : direction - 1;
     direction = direction < 0 ? 3 : direction;
     
     const length = parseInt(item.substring(1));
