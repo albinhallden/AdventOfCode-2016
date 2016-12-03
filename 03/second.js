@@ -24,5 +24,3 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
   .map(item => item.sort((a, b) => b < a))
   .reduce((prev, curr) => curr[0] + curr[1] > curr[2] ?prev + 1 : prev, 0);
 console.log(result);
-
-// 1805 too low
