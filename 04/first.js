@@ -3,8 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 
-let position = { x: 1, y: 1 };
-
 const result = fs.readFileSync(path.join('input.txt')).toString()
   .split('\n').map(item => item.trim().split('['))
   .map(item => item.map(part => 
