@@ -4,20 +4,14 @@ const fs = require('fs');
 const path = require('path');
 
 const result = fs.readFileSync(path.join('input.txt')).toString()
-  .split('\n').map(item => item.trim().split('['))
-  .map(item => item.map(part => 
-    part.replace(/[\]]/g, '')
-  )).map(item => { 
-    const name = item[0].split('-');
-    const id = parseInt(name.pop(), 10);
-    return { 
-      name: name.join('').split(''), 
-      checksum: item[1],
-      id 
-    }
-  })
+  .split('\n').map(item => item.trim())
+  .map(item => Object.assign({ 
+    name: item.substring(0, item.lastIndexOf('-')).split('-').join(''), 
+    checksum: item.substring(item.lastIndexOf('[') + 1, item.lastIndexOf(']')),
+    id: parseInt(item.substring(item.lastIndexOf('-') + 1, item.lastIndexOf('[')), 10)
+  }))
   .map(item => {
-    item.name = item.name.reduce((prev, curr) => {
+    item.name = item.name.split('').reduce((prev, curr) => {
       if (Object.keys(prev).indexOf(curr) >= 0) prev[curr] += 1;
       else prev[curr] = 1;
       return prev;
