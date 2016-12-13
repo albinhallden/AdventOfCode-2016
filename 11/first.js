@@ -59,13 +59,10 @@ function isMoveAllowed(items) {
     const floorGenerators = getItemsFromFloor(items, items[chip])
       .filter(item => Object.keys(item)[0][2] === 'g');
     
-    // Chip and generator pair
     const pairCheck = floorGenerators.filter(item => {
-      // console.log({chip: chip.substring(0, 2), item: Object.keys(item)[0].substring(0, 2)});
       return chip.substring(0, 2) === Object.keys(item)[0].substring(0, 2);
     }).length === 1;
 
-      //.filter(item => Object.keys(item)[0].substring(0, 2) !== chip.substring(0, 2));
     return pairCheck
       ? pairCheck
       : floorGenerators.length === 0;
@@ -73,14 +70,12 @@ function isMoveAllowed(items) {
 }
 
 const start = { data, steps: 0, elevator: 0 };
-// console.log(getTableKey(start));
 const queue = [start];
 const visited = {};
 visited[getTableKey(start)] = true;
 let loop = 0;
 while(queue.length > 0) {
   const current = queue.shift();
-  // console.log(loop++, getTableKey(current));
 
   if (areAllItemsOnTopFloor(current.data, maxLevel)) {
     console.log('Done!', current.steps);
@@ -116,11 +111,8 @@ while(queue.length > 0) {
           });
 
           if (visited[getTableKey(newMove)] === undefined && isMoveAllowed(newMove.data)) {
-            // console.log('GOOD', getTableKey(newMove));
             visited[getTableKey(newMove)] = true;
             queue.push(newMove);
-          } else {
-            // console.log('BAD', getTableKey(newMove));
           }
         });
     }
@@ -129,14 +121,3 @@ while(queue.length > 0) {
 
 const endTime = Date.now();
 console.log('Time:', (endTime - startTime), 'milliseconds');
-
-// 11 too low
-// 15 too low
-// 20 too low
-// 24 Not correct
-// 25 Not correct
-// 26 Not correct
-// 27 Not correct
-// 28 Not correct
-// 29 Not correct
-// 30 Not correct
