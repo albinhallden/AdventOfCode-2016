@@ -3,8 +3,6 @@
 const fs = require('fs');
 const path = require('path');
 
-let position = { x: 1, y: 1 };
-
 const result = fs.readFileSync(path.join('input.txt')).toString()
   .split('\n')
   .map(item => item.trim())
@@ -22,8 +20,7 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
     y = y >= 0 ? y : 0;
     x = x <= 2 ? x : 2;
     y = y <= 2 ? y : 2;
-    position = { x, y };
-    return position;
-  }, position))
+    return { x, y };
+  }, { x: 1, y: 1 }))
   .map(item => item.y * 3 + item.x % 3 + 1);
 console.log(result);

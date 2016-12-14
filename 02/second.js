@@ -11,8 +11,6 @@ const grid = [
   [false, false, 'D', false, false]
 ];
 
-let position = { x: 0, y: 2 };
-
 const result = fs.readFileSync(path.join('input.txt')).toString()
   .split('\n')
   .map(item => item.trim())
@@ -34,8 +32,7 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
     x = grid[y][x] !== false ? x : prev.x;
     y = grid[y][x] !== false ? y : prev.y;
     
-    position = { x, y };
-    return position;
-  }, position))
+    return { x, y };
+  }, { x: 0, y: 2 }))
   .map(item => grid[item.y][item.x]);
 console.log(result);
