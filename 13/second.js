@@ -23,8 +23,6 @@ for (let x = 0; x < xLength; x++) {
   }
 }
 
-// console.log(map);
-
 const start = { x: 1, y: 1 };
 const nextTargets = [start];
 const visited = {};
@@ -35,13 +33,11 @@ while(nextTargets.length !== 0) {
 
   if (current.steps <= 50) {
     visited[`x${current.x}y${current.y}`] = current;
-    // Get all possible moves from current
     let minX = current.x - 1 < 0 ? 0 : current.x - 1;
     let maxX = current.x + 1 === xLength ? current.x : current.x + 1;
     let minY = current.y - 1 < 0 ? 0 : current.y - 1;
     let maxY = current.y + 1 === xLength ? current.y : current.y + 1;
     
-    // console.log({ minX, minY, maxX, maxY });
     for (let x = minX; x <= maxX; x++) {
       if (map[x][current.y] === true && visited[`x${x}y${current.y}`] === undefined) {
         nextTargets.push({ x, y: current.y, steps: current.steps + 1 });
@@ -56,5 +52,3 @@ while(nextTargets.length !== 0) {
 }
 
 console.log(Object.keys(visited).length);
-
-// 132 too low

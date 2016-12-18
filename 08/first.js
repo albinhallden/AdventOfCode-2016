@@ -25,7 +25,6 @@ const fill = (x, y, array) => {
 }
 
 const rotateColumn = (x, length, array) => {
-  console.log('rotateColumn', { x, array });
   for (let loop = 0; loop < length; loop++) {
     let stash = array[array.length - 1][x];
     for(let iY = array.length - 1; iY >= 1; iY--) {
@@ -37,7 +36,6 @@ const rotateColumn = (x, length, array) => {
 }
 
 const rotateRow = (y, length, array) => {
-  console.log('rotateRow', { x, array });
   for (let loop = 0; loop < length; loop++) {
     let stash = array[y][array[0].length - 1];
     for(let iY = array[0].length - 1; iY >= 1; iY--) {
@@ -62,12 +60,10 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
       const steps = item[2].split('y=').map(sub => parseInt(sub, 10));
       array = rotateRow(steps[1], parseInt(item[4], 10), array);
     }
-    console.log(item);
     return array;
   });
   
 const temp = result[0].reduce((prev, curr) => {
-    console.log({prev,curr});
     return prev + curr.reduce((subPrev, subCurr) => subCurr === '#' ? subPrev + 1 : subPrev, 0);
   }, 0);
   
