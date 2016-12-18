@@ -1,7 +1,6 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 
 const dirs = ['N', 'E', 'S', 'W'];
 
@@ -12,7 +11,7 @@ let stepsY = 0;
 const map = {};
 let interlapsFound = false;
 
-fs.readFileSync(path.join('input.txt')).toString()
+fs.readFileSync('input.txt').toString()
   .split(',')
   .map(item => item.trim())
   .forEach(item => {
@@ -24,7 +23,9 @@ fs.readFileSync(path.join('input.txt')).toString()
     // Check map and add spot
     let tempX = stepsX;
     let tempY = stepsY;
-    for (let i = 1; i <= length; i++) {
+    let current = 1;
+    while (current <= length) {
+      current++;
       if (!interlapsFound) {  
         if (direction % 4 === 0) tempY++;
         else if (direction % 4 === 1) tempX++;
@@ -32,7 +33,7 @@ fs.readFileSync(path.join('input.txt')).toString()
         else if (direction % 4 === 3) tempX--;
         
         if (map[`${tempX},${tempY}`]) {
-          console.log(`Been here before: x:${tempX}, y:${tempY}. temp away: ${(tempY < 0 ? tempY *= -1 : tempY) + (tempX < 0 ? tempX *= -1 : tempX)}`);
+          console.log((tempY < 0 ? tempY *= -1 : tempY) + (tempX < 0 ? tempX *= -1 : tempX));
           interlapsFound = true;
         }
 
@@ -45,5 +46,3 @@ fs.readFileSync(path.join('input.txt')).toString()
     else if (direction % 4 === 2) stepsY -= length;
     else if (direction % 4 === 3) stepsX -= length;
   });
-
-console.log((stepsY < 0 ? stepsY *= -1 : stepsY) + (stepsX < 0 ? stepsX *= -1 : stepsX));

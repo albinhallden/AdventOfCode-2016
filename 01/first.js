@@ -1,11 +1,10 @@
 'use strict';
 
 const fs = require('fs');
-const path = require('path');
 
 let direction = 0; // 0 = N, 1 = E, 2 = S, 3 = W
 
-const result = fs.readFileSync(path.join('input.txt')).toString()
+const result = fs.readFileSync('input.txt').toString()
   .split(',')
   .map(item => item.trim())
   .reduce((prev, curr) => {
