@@ -1,8 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
 const grid = [
   [false, false, 1, false, false],
   [false, 2, 3, 4, false],
@@ -11,7 +8,7 @@ const grid = [
   [false, false, 'D', false, false]
 ];
 
-const result = fs.readFileSync(path.join('input.txt')).toString()
+const result = require('fs').readFileSync('input.txt').toString()
   .split('\n')
   .map(item => item.trim())
   .map(item => item.split(''))
@@ -23,16 +20,17 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
   }))
   .map(item => item.reduce((prev, curr) => {
     let x = curr.x + prev.x;
-    let y = curr.y + prev.y; 
+    let y = curr.y + prev.y;
     x = x >= 0 ? x : 0;
     y = y >= 0 ? y : 0;
     x = x <= 4 ? x : 4;
     y = y <= 4 ? y : 4;
 
-    x = grid[y][x] !== false ? x : prev.x;
-    y = grid[y][x] !== false ? y : prev.y;
-    
-    return { x, y };
+    return {
+      x: grid[y][x] !== false ? x : prev.x,
+      y: grid[y][x] !== false ? y : prev.y
+    };
   }, { x: 0, y: 2 }))
-  .map(item => grid[item.y][item.x]);
+  .map(item => grid[item.y][item.x])
+  .join('');
 console.log(result);

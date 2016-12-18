@@ -1,9 +1,6 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
-const result = fs.readFileSync(path.join('input.txt')).toString()
+const result = require('fs').readFileSync('input.txt').toString()
   .split('\n').map(item => item.trim())
   .reduce((prev, curr) => {
     if (prev.length === 0) prev = new Array(curr.length).fill('');
@@ -14,11 +11,9 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
     prev[curr]++;
     return prev;
   }, {}))
-  .map(item => {
-    return Object.keys(item).map(sub => {
-      return { key: sub, count: item[sub] };
-    });
-  })
+  .map(item => Object.keys(item).map(sub => {
+    return { key: sub, count: item[sub] };
+  }))
   .map(item => item.sort((a, b) => {
     if (a.count === b.count) return 0;
     if (a.count > b.count) return 1;

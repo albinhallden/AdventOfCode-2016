@@ -1,27 +1,21 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
 Object.prototype.checkPattern = function() {
   const betweens = this.betweens;
   const regulars = this.regulars;
 
-  let counter = 0; 
+  let counter = 0;
   const letters = regulars.join('|').split('');
   const betweeners = betweens.join('|');
   while(counter < letters.length - 2) {
-    if (letters[counter] === letters[counter + 2] && letters[counter] !== letters[counter + 1]) {
-      if (betweeners.includes(`${letters[counter + 1]}${letters[counter]}${letters[counter + 1]}`)) {
-        return true;
-      }
-    }
+    if (letters[counter] === letters[counter + 2] && letters[counter] !== letters[counter + 1]
+      && betweeners.includes(`${letters[counter + 1]}${letters[counter]}${letters[counter + 1]}`)) return true;
     counter ++;
   }
   return false;
 }
 
-const result = fs.readFileSync(path.join('input.txt')).toString()
+const result = require('fs').readFileSync('input.txt').toString()
   .split('\n').map(item => item.trim())
   .map(item => item.split(/[\[\]]/))
   .map(item => item.reduce((prev, curr, index) => {

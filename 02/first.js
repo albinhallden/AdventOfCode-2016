@@ -1,9 +1,6 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
-const result = fs.readFileSync(path.join('input.txt')).toString()
+const result = require('fs').readFileSync('input.txt').toString()
   .split('\n')
   .map(item => item.trim())
   .map(item => item.split(''))
@@ -15,12 +12,13 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
   }))
   .map(item => item.reduce((prev, curr) => {
     let x = curr.x + prev.x;
-    let y = curr.y + prev.y; 
+    let y = curr.y + prev.y;
     x = x >= 0 ? x : 0;
     y = y >= 0 ? y : 0;
     x = x <= 2 ? x : 2;
     y = y <= 2 ? y : 2;
     return { x, y };
   }, { x: 1, y: 1 }))
-  .map(item => item.y * 3 + item.x % 3 + 1);
+  .map(item => item.y * 3 + item.x % 3 + 1)
+  .join('');
 console.log(result);

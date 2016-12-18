@@ -1,15 +1,12 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
 Object.prototype.checkForReversePattern = function() {
-  let counter = 0; 
+  let counter = 0;
   const letters = this.split('');
   while(counter < letters.length - 3) {
-    if (letters[counter] === letters[counter + 3] 
+    if (letters[counter] === letters[counter + 3]
       && letters[counter + 1] === letters[counter + 2]
-      && letters[counter] !== letters[counter + 1] 
+      && letters[counter] !== letters[counter + 1]
     ) {
       return true;
     }
@@ -18,7 +15,7 @@ Object.prototype.checkForReversePattern = function() {
   return false;
 }
 
-const result = fs.readFileSync(path.join('input.txt')).toString()
+const result = require('fs').readFileSync('input.txt').toString()
   .split('\n').map(item => item.trim())
   .map(item => item.split(/[\[\]]/))
   .map(item => item.map(sub => sub.checkForReversePattern()))
@@ -27,8 +24,8 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
     else prev.betweens.push(curr);
     return prev;
   }, { regulars: [], betweens: [] }))
-  .map(item => 
-    item.regulars.some(element => element === true) 
+  .map(item =>
+    item.regulars.some(element => element === true)
     && item.betweens.every(element => element === false)
   )
   .reduce((prev, curr) => {

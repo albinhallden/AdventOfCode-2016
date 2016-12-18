@@ -1,8 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
 const x = 50;
 const y = 6;
 let array = [{x, y}].map(item => {
@@ -46,7 +43,7 @@ const rotateRow = (y, length, array) => {
   return array;
 }
 
-const result = fs.readFileSync(path.join('input.txt')).toString()
+const result = require('fs').readFileSync('input.txt').toString()
   .split('\n').map(item => item.trim())
   .map(item => item.split(' '))
   .map(item => {
@@ -62,9 +59,9 @@ const result = fs.readFileSync(path.join('input.txt')).toString()
     }
     return array;
   });
-  
+
 const temp = result[0].reduce((prev, curr) => {
     return prev + curr.reduce((subPrev, subCurr) => subCurr === '#' ? subPrev + 1 : subPrev, 0);
   }, 0);
-  
-console.log({ temp });
+
+console.log(temp);
