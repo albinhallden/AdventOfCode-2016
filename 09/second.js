@@ -1,9 +1,6 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
-
-const data = fs.readFileSync(path.join('input.txt')).toString()
+const data = require('fs').readFileSync('input.txt').toString()
   .split('\n').map(item => item.trim())[0];
 
 function getDecompressedLength(str) {
@@ -17,7 +14,7 @@ function getDecompressedLength(str) {
     const start = i + match[0].length;
     const matchStr = str.substr(start, matchLength);
     const decompressedLength = getDecompressedLength(matchStr);
-    
+
     length += decompressedLength * times - matchStr.length - match[0].length;
     i = start + matchStr.length - 1;
   }
